@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Request list</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+        <link rel="stylesheet" href="{% static 'rai_smartInventory/client_inventory/request_styles.css' %}">
+    </head>
+    <body>
+        <div id="containerMenu">
+            <div id="navbar">
+                <a id="menu" href="/modules/smart_inventory/homepage">Menu</a>
+                <a id="active" href="/modules/smart_inventory/homepage/request">Request</a>
+                <a id="notif" href="/modules/smart_inventory/homepage/checkout">Cart</a>
+                <a id="profile" href="/authen/login">Profile</a>
+                <a id="admin" href="/modules/smart_inventory/admin">Admin</a>
+            </div>
+        </div>
+        <div class="cart_wrapper">
+            <div class="your_bag">YOUR REQUEST</div>
+        </div>
+        <div class="box">
+            <!-- 2 pages view then show list -->
+            <!-- views take requstList -->
+            <!-- show List take itemOrdeinside -->
+            <div class="content">
+                <!-- <img id="image" src="/media/{{order.product.image}}" alt="sample" title="sample" width="150px" height="150px"> -->
+                <table class="content_table" id="itemtable_table">  
+                    <tr>    
+                         <th width="33%">Order ID</th>    
+                         <th width="33%">User</th>   
+                         <th width="33%">Date/Time</th>
+                    </tr>
+                    {% for order in orders %}
+                    <tr onclick="window.open('/modules/smart_inventory/homepage/request/{{order.id}}','_self')" style="cursor:pointer;">
+                        <div class="tdd">
+                            <td width="33%">{{order.id}}</th>    
+                            <td width="33%">{{order.owner}}</td>   
+                            <td id="date_ordered-{{order.id}}" width="33%"> </td>
+                            <script>
+                                document.getElementById('date_ordered-{{order.id}}').innerHTML = (new Date("{{order.date_ordered}}")).toLocaleString("en-GB")
+                            </script>
+                      </div>    
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <script type="text/javascript" src="{% static 'rai_smartInventory/client_inventory/scripts.js' %}"></script>
+    </body>
+</html>
+
+<style></style>

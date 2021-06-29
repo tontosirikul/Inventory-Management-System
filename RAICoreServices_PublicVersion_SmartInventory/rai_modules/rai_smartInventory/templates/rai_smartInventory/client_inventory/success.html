@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Success</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+        <link rel="stylesheet" href="{% static 'rai_smartInventory/client_inventory/submit.css' %}">
+    </head>
+    <body>
+        <div id="containerMenu">
+            <div id="navbar">
+                <a id="menu" href="/modules/smart_inventory/homepage">Menu</a>
+                <a id="active" href="/modules/smart_inventory/homepage/request">Request</a>
+                <a id="notif" href="/modules/smart_inventory/homepage/checkout">Cart</a>
+                <a id="profile" href="/authen/login">Profile</a>
+                <a id="admin" href="/modules/smart_inventory/admin">Admin</a>
+            </div>
+        </div>
+        <div class="body">
+            <span>Your request have been sent to admin, and being process!</span>
+        </div>
+
+        <script type="text/javascript" src="{% static 'rai_smartInventory/client_inventory/scripts.js' %}"></script>
+    </body>
+</html>
+
+<style></style>

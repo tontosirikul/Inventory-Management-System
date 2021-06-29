@@ -1,0 +1,32 @@
+{% extends 'authen_base.html' %} {% load static %} {% block content %}
+
+<div class="popup-panel">
+	<div class="body">
+		<form method="post" class="content">{% csrf_token %}
+			<span class="title">Information</span>
+			<div class="form-group">
+				<label>First Name</label>
+				<input type="text" name="info-first_name" placeholder="Empty" value="{{raiuser.first_name}}" required>
+				<label>Last Name</label>
+				<input type="text" name="info-last_name" placeholder="Empty" value="{{raiuser.last_name}}">
+				<label>Nickname</label>
+				<input type="text" class="detail" name="info-nickname" placeholder="Empty" value="{{raiuser.nickname}}">
+				<label>Phone</label>
+				<input type="text" class="detail" name="info-phone" placeholder="Empty" value="{{raiuser.phone}}">
+				<label>Email</label>
+				<input type="text" class="detail" name="info-email" placeholder="Empty" value="{{raiuser.email}}">
+				<label>Line</label>
+				{% if raiuser.line_userid != '' %}
+				<button class="btn btn2" type="button" onclick="goto('/modules/user/line_account_disconnect')">Disconnect</button>
+				{% else %}
+				<button class="btn btn2" type="button" onclick="goto('/modules/user/line_account_connection')">Connect</button>
+				{% endif %}
+			</div>
+			<div class="division-line"></div>
+			<button class="btn btn2" type="button" onclick="goto('/authen/password')">Change password</button>
+			<button class="btn" type="submit">Save</button>
+		</form>
+		<span class="close-btn" onclick="goback()">Go Back</span>
+	</div>
+</div>
+{% endblock %}

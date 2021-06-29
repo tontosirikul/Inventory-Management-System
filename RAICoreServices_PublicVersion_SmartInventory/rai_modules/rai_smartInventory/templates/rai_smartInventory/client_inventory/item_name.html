@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Item List</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+        <link rel="stylesheet" href="{% static 'rai_smartInventory/client_inventory/item_name_styles.css' %}">
+    </head>
+    <body>
+        <div id="containerMenu">
+            <div id="navbar">
+                <a id="menu" href="/modules/smart_inventory/homepage">Menu</a>
+                <a id="active" href="/modules/smart_inventory/homepage/request">Request</a>
+                <a id="notif" href="/modules/smart_inventory/homepage/checkout">Cart</a>
+                <a id="profile" href="/authen/login">Profile</a>
+                <a id="admin" href="/modules/smart_inventory/admin">Admin</a>
+            </div>
+        </div>
+        <div class="containerBody">
+                {% for group in groupofitems %}
+                <div>
+                    <img id="image" src="/media/{{group.image}}" alt="sample" title="sample" width="250px" height="250px">
+
+                    <div class="box">
+                        <div class="body">Series : {{group.series}}</div>
+                        <div class="body">Brand : {{group.brand}}</div>
+                        <div class="body">Status : {{group.status}}</div>
+                        <div class="body">Desc : {{group.desc}}</div>
+                        {% if group.status == 'Available' %}
+                        <button class="addItem_button" onclick="window.location.href = '{{category_id}}/add_item/{{group.id}}';">Add Item to cart</button>
+                        {% else %}
+                        <button class="addItem_button" onclick="window.location.href = '#';">Not Available</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- will add related item at bottom of the page -->
+                <!-- You might interest/also like -->
+        </div>
+        <script type="text/javascript" src="{% static 'rai_smartInventory/client_inventory/scripts.js' %}"></script>
+    </body>
+</html>
+<!-- <img id="image" src="{% static 'rai_smartInventory/client_inventory/sample.png' %}" alt="sample" title="sample" width="250px" height="250px"> -->

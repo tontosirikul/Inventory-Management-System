@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+		<!-- Icon -->
+		<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+
+		<title>RAI Laboratory</title>
+		
+		<link rel="shortcut icon" type="image/png"	 href="{% static 'rai_home/favicon/icon2/icon@32.png' %}"/>
+		<link rel="apple-touch-icon" 				 href="{% static 'rai_home/favicon/icon2/icon@80.png' %}"> <!-- iPhone -->
+		<link rel="apple-touch-icon" sizes="152x152" href="{% static 'rai_home/favicon/icon2/icon@152.png' %}"> <!-- iPad -->
+		<link rel="apple-touch-icon" sizes="180x180" href="{% static 'rai_home/favicon/icon2/icon@180.png' %}"> <!-- iPhone-retina -->
+		<link rel="apple-touch-icon" sizes="167x167" href="{% static 'rai_home/favicon/icon2/icon@167.png' %}"> <!-- iPad-retina -->
+
+		<meta name="apple-mobile-web-app-title" content="RAI Lab">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+		<!-- <meta name="viewport" content="width=device-width"> -->
+
+		<style type="text/css">
+			body{
+				font-family: Arial, Helvetica, sans-serif;
+				margin: 0px;
+				background-color: #fff;
+			}
+
+			/* @font-face {
+				font-family: Righteous; 
+				src: url({% static 'fonts/Righteous-Regular.ttf' %});
+			}
+			@font-face {
+				font-family: FAqua; 
+				src: url({% static 'fonts/aqua.ttf' %});
+			} */
+
+			.rai-nav{
+				width: 100%;
+				padding: 1.2em 1.5em;
+				background-color: #fff;
+				box-sizing: border-box;
+				font-size: 1.05em;
+				display: block;
+				position: fixed;
+				z-index: 1;
+				top: 0em;
+			}
+			.rai-nav .rai-nav-desktop{ display: block; }
+			.rai-nav .rai-nav-mobile{  display: none; }
+			.rai-nav .rai-item{
+				float: right;
+				cursor: pointer;
+				color: #aaa;
+				margin-left: 2em;
+				text-transform: uppercase;
+			}
+			.rai-nav .rai-item .icon{
+				cursor: pointer;
+				display: inline-block;
+				position: absolute;
+				width:  2em;
+				height: 2em;
+				right: 1.5em;
+				top: 0.8em;
+				border-radius: 50%;
+			}
+			.rai-nav .rai-title{
+				color: #333;
+				font-weight: bold;
+			}
+			.rai-nav .rai-title .rai-secondary-link{
+				color: #777;
+				font-weight: bold;
+			}
+			.rai-nav .rai-title .rai-secondary-link:hover{
+				/* color: #00C3FF; */
+				color: #007bff;
+			}
+			.rai-nav .rai-arrow{
+				color: #ccc;
+				font-weight: bold;
+				margin: 0em 0.4em;
+			}
+			.rai-link{
+				text-decoration: none;
+			}
+			.rai-link:hover{
+				text-decoration: none;
+				color: #36f !important;
+				cursor: pointer;
+			}
+			.rai-link.red:hover{
+				color: #dc3545 !important;
+			}
+
+			.rai-main-body{
+				width: 100%;
+				padding: 5em 10vw;
+			}
+
+			@media screen and (max-width: 1000px) and (min-height: 1000px){ /* Mobile */
+				.rai-nav{
+					border-bottom: solid 2px #eee;
+					padding: 1em 0.7em;
+					padding-bottom: 0.9em;
+					font-size: 3.8em;
+					line-height: 1em;
+				}
+				.rai-nav .rai-nav-desktop{ display: none; }
+				.rai-nav .rai-nav-mobile{  display: block; }
+				.rai-nav .rai-item .icon{
+					width:  2em;
+					height: 2em;
+					right: 0.5em;
+					top: 0.5em;
+				}
+				.rai-nav .rai-title .rai-secondary-link{
+					color: #666;
+				}
+				.rai-nav .rai-title .back-arrow{
+					margin-right: 0.2em;
+				}
+
+				.rai-main-body{
+					padding: 13em 3em;
+				}
+				
+			}
+		</style>
+
+	</head>
+	<body>
+		
+		<div class="rai-nav">
+			<div class="rai-nav-desktop">
+				<span class="rai-title">ROBOTICS & AI</span>
+				<a class="rai-title rai-link" href="/">
+					<span class="rai-secondary-link">laboratory</span>
+				</a>
+				<span id="rai-nav-items"></span>
+			</div>
+			<div class="rai-nav-mobile">
+				<span id="rai-nav-mobile-link" class="rai-title rai-link"><span class="rai-secondary-link"><i class="back-arrow fas fa-angle-left"></i> <span id="rai-nav-mobile-link-text"></span></span></span>
+			</div>
+			
+			<div class="rai-item rai-link" onclick="goto('/authen/login')">
+				{% if raiuser.image == '' or request.user.is_authenticated == False %}
+				<img class="icon" src="{% static 'rai_home/images/user.png' %}" align="right">
+				{% else %}
+				<img class="icon" src="/media/{{raiuser.image}}" align="right">
+				{% endif %}
+			</div>		
+		</div>
+
+		<script>
+			var rainav_previous_url = '/';
+			function appendNavItem(item){
+				let navItemsElement = d3.select('#rai-nav-items');
+				navItemsElement.append('i').attr('class','rai-arrow fas fa-caret-right')
+				navItemsElement.append('span').attr('class','rai-title rai-link').on('click',function(){ goto(item.url); }).append('span').attr('class','rai-secondary-link').text(item.name);
+				
+				d3.select('#rai-nav-mobile-link').on('click',function(){ 
+					// goto('/'); 
+					window.history.back();
+				});
+				// d3.select('#rai-nav-mobile-link').attr('href',rainav_previous_url);
+				d3.select('#rai-nav-mobile-link-text').text(item.name);
+				rainav_previous_url=item.url;
+
+				document.title = 'RAI Laboratory - '+item.name;
+			}
+			
+			function goto(url){ location.href = url; }
+			function goback(url){ window.history.back(); }
+
+			function isIOS() {
+				var userAgent = window.navigator.userAgent.toLowerCase();
+				return /iphone|ipad|ipod/.test( userAgent );
+			};
+
+			function isStandalone() { return ( isIOS() && window.navigator.standalone ); };
+
+			window.onload = function () {
+				if( isStandalone() || !isIOS() ) {
+
+				} else {
+					
+				};
+			};
+		</script>
+
+		<div class="rai-main-body">
+			{% block content %}
+			{% endblock %}
+		</div>
+		
+	</body>
+</html>

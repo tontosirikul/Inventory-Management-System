@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Request no.{{order.id}}</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+        <link rel="stylesheet" href="{% static 'rai_smartInventory/client_inventory/requestItem_styles.css' %}">
+    </head>
+    <body>
+        <div id="containerMenu">
+            <div id="navbar">
+                <a id="menu" href="/modules/smart_inventory/homepage">Menu</a>
+                <a id="active" href="/modules/smart_inventory/homepage/request">Request</a>
+                <a id="notif" href="/modules/smart_inventory/homepage/checkout">Cart</a>
+                <a id="profile" href="/authen/login">Profile</a>
+                <a id="admin" href="/modules/smart_inventory/admin">Admin</a>
+            </div>
+        </div>
+        <div class="cart_wrapper">
+            <div class="your_bag">REQUEST ID # {{order.id}}</div>
+        </div>
+        <div class="box">
+            {% for item in items %}
+            <!-- changes below -->
+            <!-- what to do if item.is_approved == 0 and item.is_rejected == 0 show pending or checking
+            if item.is_rejected == 1 show Rejected or None
+            if item.is_approved == 1 then show approved along with returned date -->
+            <div class="content">
+                <img id="image" src="/media/{{item.product.image}}" alt="sample" title="sample" width="150px" height="150px">
+                <div class="body">Item : {{item.product.brand}}/{{item.product.series}}
+                    {% if item.is_approved == 0 and item.is_rejected == 0 %}
+                    <div class="serial">Serial number : None</div>
+                    <div class="item_status">Status : Pending</div>
+
+                    {% elif item.is_rejected == 1 %}
+                    <div class="serial">Serial number : None</div>
+                    <div class="item_status">Status : Rejected</div>
+
+                    {% elif item.is_approved == 1 and item.is_returned == 0 %}
+                    <div class="serial">Serial number : {{ item.which_serial.serial }}</div>
+                    <div class="item_status">Status : Approved</div>
+                    <div class="item_status">Place : {{order.pickup_place}}</div>
+                    <input type='text' class="demand" id='demand_date{{item.id}}' placeholder="Pick-up date" name="demand_date" disabled>
+                    <script>
+                        document.getElementById('demand_date{{item.id}}').placeholder = 'Given date : '+(new Date('{{order.pickup_date}}')).toLocaleString('en-GB');
+                    </script>
+                    <input type='text' class="demand" id='return_date{{item.id}}' placeholder="Return date" name="demand_date" disabled>
+                    <script>
+                        document.getElementById('return_date{{item.id}}').placeholder = 'Return : '+(new Date('{{item.return_date}}')).toLocaleString('en-GB');
+                    </script>
+
+                    {% elif item.is_returned == 1 %}
+                    <div class="serial">Serial number : {{ item.which_serial.serial }}</div>
+                    <div class="item_status">Status : Returned</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="desc">Description : {{order.description}}</div>
+        </div>
+        <script type="text/javascript" src="{% static 'rai_smartInventory/client_inventory/scripts.js' %}"></script>
+    </body>
+</html>
+
+<style></style>

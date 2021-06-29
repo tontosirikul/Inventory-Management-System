@@ -1,0 +1,711 @@
+{% extends 'rai_home/module_base.html' %} {% load static %} {% block content %}
+
+<script>
+appendNavItem({'name':'Module Manager','url':'/modules/module_manager'});
+appendNavItem({'name':'{{module.name}}','url':'/modules/module_manager/view/{{module.id}}/'});
+</script>
+
+<style>
+	body{
+		font-family: Arial, Helvetica, sans-serif;
+		margin: 0px;
+		background-color: #fff;
+	}
+
+	.rai-title-block{
+		display: flex;
+		justify-content: space-between;
+		align-items:flex-start;
+		border-top: solid 1px #ddd;
+		margin-top: 2em;
+		padding-top: 0.4em;
+	}
+	.rai-title-block .rai-title{
+		font-weight: bold;
+		color: #222;
+		font-size: 1.3em;
+		/* margin: 0.5em; */
+		display: inline-block;
+	}
+
+	.rai-main-container{
+		display: block;
+		margin: 0em;
+		min-height: 80vh;
+	}
+
+	.rai-module-block{
+		display: inline-block;
+		border-radius: 0.75em;
+		width: 100%;
+		padding: 0.9em 1em;
+		border-radius: 0.75em;
+	}
+	.rai-module-block .body{
+		display: flex;
+	}
+
+	.rai-module-block .body img{
+		float: left;
+		height: 8em;
+		width:  8em;
+		border-radius: 18%;
+		border: solid #f2f2f2 1.5px;
+	}
+	.rai-module-block .content{
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+	.rai-module-block .content .col{
+		padding: 0em 1.5em;
+	}
+	.rai-module-block .content .title{
+		font-weight: bold;
+		color:#222;
+		font-size: 2em;
+		white-space: nowrap;
+		overflow: hidden;
+		/* text-overflow: ellipsis; */
+	}
+	.rai-module-block .content .subtitle{
+		width: 100%;
+		font-size: 1.2em;
+		line-height: 1.2em;
+		color: #999;
+		/* white-space: nowrap; */
+		/* text-overflow: ellipsis; */
+	}
+	.rai-module-block .content .subtitle2{
+		width: 100%;
+		font-size: 1em;
+		line-height: 2em;
+		color: #ccc;
+		margin-top: 0.7em;
+		/* white-space: nowrap; */
+		/* text-overflow: ellipsis; */
+	}
+
+
+	.rai-sub-block{
+		flex-grow: 1;
+		margin-top: 1em;
+	}
+	.rai-sub-block .title{
+		font-size: 0.9em;
+		color: #ccc;
+		font-weight: normal;
+		display: block;
+	}
+	.rai-sub-block .detail{
+		font-size: 1em;
+		color: #444;
+		font-weight: normal;
+		display: block;
+		padding: 0em;
+		border: none;
+		width: 100%;
+		border-bottom: solid #fff 2px;
+	}
+	.rai-sub-block .detail:focus{
+		outline: none;
+		border-bottom-color: #007bff;
+	}
+	.rai-block-btn{
+		margin-top: 1em;
+	}
+
+	.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
+		background-color: #ccc;
+		border: none;
+	}
+
+	input[type="file"] { display: none; }
+	.rai-input-file-block{
+		display: inline-block;
+		margin-right: 0.8em;
+	}
+	
+	#info-save-btn{ float:right; }
+
+	.raiuserpicker{
+		padding-top: 0.5em;
+		box-sizing: border-box;
+	}
+	.raiuserpicker .block{
+		padding: 0.5em 1em;
+		border-radius: 0.7em;
+		box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+		margin-right: 1em;
+		margin-bottom: 0.7em;
+		white-space: nowrap;
+		display: inline-block;
+	}
+	.raiuserpicker .block .title{
+		display: inline;
+		font-size: 1em;
+		font-weight: bold;
+		color: #333;
+	}
+	.raiuserpicker .block .subtitle{
+		font-size: 0.8em;
+		font-weight: bold;
+		color: #aaa;
+	}
+	.raiuserpicker .block .remove-btn{
+		font-size: 0.8em;
+		line-height: 1em;
+		color: #ccc;
+		cursor: pointer;
+		margin-left: 0.8em;
+	}
+
+	.raiuserpicker.addbtn{
+		margin-top: 0.5em;
+		font-size: 1em;
+		font-weight: bold;
+		color: #007bff;
+		background-color: #fff;
+		border: none;
+	}
+	.raiuserpicker.addbtn:hover{
+		color: #36f;
+	}
+
+	.rai-link{
+		color: #555;
+		/* color: #00C3FF; */
+		font-weight: bold;
+	}
+
+	@media screen and (max-width: 1000px) and (min-height: 1000px){ /* Mobile */
+		.rai-module-block{
+			border-radius: 0.75em;
+			width: 100%;
+			padding: 0.9em 1em;
+			border-radius: 0.75em;
+		}
+		.rai-module-block .body img{
+			height: 12em;
+			width:  12em;
+			border-width: 4px;
+		}
+		.rai-module-block .content .title{
+			font-size: 3em;
+		}
+		.rai-module-block .content .subtitle{
+			font-size: 2em;
+			line-height: 1.2em;
+		}
+		.rai-module-block .content .subtitle2{
+			font-size: 1em;
+			line-height: 2em;
+			margin-top: 0.7em;
+		}
+
+		.rai-title-block{
+			margin-top: 3em;
+			padding-top: 0.4em;
+		}
+		.rai-title-block .rai-title{
+			font-size: 2.5em;
+		}
+
+		#info-save-btn{
+			font-size: 2em;
+			border-radius: 0.3em;
+			padding: 0.2em 0.6em;
+		}
+
+		.rai-sub-block{
+			margin-top: 1.5em;
+		}
+		.rai-sub-block .title{
+			font-size: 2em;
+		}
+		.rai-sub-block .detail{
+			font-size: 2.2em;
+			border-bottom-width: 4px;
+		}
+
+		.custom-control {
+			min-height: 1.5rem;
+			padding-left: 3.5rem;
+		}
+		.custom-checkbox .custom-control-label::before {
+			border-radius: 0.3em;
+			left: -3.5rem;
+			width:  1.1em;
+			height: 1.1em;
+			border: #adb5bd solid 1px;
+		}
+		.custom-checkbox .custom-control-label::after {
+			top: .25rem;
+			left: -3.5rem;
+			width:  1.1em;
+			height: 1.1em;
+		}
+
+		.raiuserpicker .block{
+			padding: 0.5em 1.5em;
+			border-radius: 1em;
+			box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.1);
+			margin-right: 0.5em;
+			margin-bottom: 0.7em;
+		}
+		.raiuserpicker .block .title{
+			font-size: 2.5em;
+		}
+		.raiuserpicker .block .subtitle{
+			font-size: 2em;
+		}
+		.raiuserpicker .block .remove-btn{
+			font-size: 2.2em;
+			line-height: 1em;
+			margin-left: 0.5em;
+		}
+	}
+
+		
+</style>
+<div class="rai-main-container">
+	<form method="post" enctype="multipart/form-data">{% csrf_token %}
+	<div class="rai-module-block">
+		<div class="body">
+			{% if module.icon == '' %}
+				<img id="img-icon" src="{% static 'rai_home/images/module-icon-template.png' %}">
+			{% else %}
+				<img id="img-icon" src="/media/{{module.icon}}">
+			{% endif %}
+			
+			<div class="content">
+				<div class="col">
+					<div class="title" id="module-name">{{module.name}}</div>
+					<div class="subtitle" id="module-description">{{module.description}}</div>
+					<!-- <div class="subtitle2" id="module-permission">Student</div> -->
+				</div>
+				<div class="col">
+					<button id="info-save-btn" class="btn btn-outline-primary" type="submit"><i class="far fa-save"></i> save</button>
+				</div>
+			</div>
+		</div>
+		<div class="rai-title-block"><div class="rai-title">Information</div></div>
+		<div class="rai-sub-block">
+			<span class="title">Name</span>
+			<input type="text" class="detail" name="info-name" id="info-name" placeholder="no name" value="{{module.name}}" required>
+		</div>
+		<div class="rai-sub-block">
+			<span class="title">Description</span>
+			<input type="text" class="detail" name="info-description" id="info-description" placeholder="no description" value="{{module.description}}">
+		</div>
+		<div class="rai-sub-block">
+			<span class="title">Path</span>
+			<input type="text" class="detail" name="info-path" id="info-path" placeholder="no path" value="{{module.path}}">
+		</div>
+		<div class="rai-sub-block">
+			<span class="title">Icon</span>
+			{% if module.icon != '' %}
+			<div class="rai-input-file-block">
+				<span onclick="removeIcon()" class="detail rai-link red"><i class="far fa-times-circle"></i> Remove</span>
+			</div>
+			{% endif %}
+			<div class="rai-input-file-block">
+				<input type="file" name="info-icon" id="info-icon" class="rai-input-file" accept="image/*">
+				<label class="detail rai-link" for="info-icon"><i class="far fa-file-image"></i> <span id="info-icon-label">Upload</span></label>
+			</div>
+		</div>
+		
+		<!-- <div class="rai-title-block"><div class="rai-title">Statistic</div></div> -->
+		<div class="rai-title-block"><div class="rai-title">Advance</div></div>
+		<div class="rai-sub-block">
+			<span class="title">Display</span>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="info-is_show" name="info-is_show">
+				<label class="custom-control-label detail" for="info-is_show">Show this module on home page</label>
+			</div>
+		</div>
+		<div class="rai-sub-block">
+			<span class="title">Accessibility</span>
+			{% for module_acc in module_accessibility_list %}
+			<div class="custom-control custom-checkbox">
+				<input type="radio" class="custom-control-input" id="info-p{{forloop.counter}}" name="info-accessibility" value="{{module_acc.0}}">
+				<label class="custom-control-label detail" for="info-p{{forloop.counter}}">{{module_acc.1}}</label>
+			</div>
+			{% endfor %}
+		</div>
+
+		<!-- <div class="rai-title-block"><div class="rai-title">Admin – <span class="rai-link" onclick="raiuserpickerShow()">Add</span></div></div> -->
+		<div class="rai-sub-block">
+			<span class="title">Admin</span>
+			<input type="text" name="info-admin" id="info-admin" style="display:none">
+			<div class="raiuserpicker" id="info-admin-display">
+				<!-- <div class="block">
+					<span class="title">Saharat</span>
+					<span class="subtitle">- 61011090</span>
+					<span class="remove-btn"><i class="far fa-trash-alt"></i></span>
+				</div> -->
+			</div>
+			<span class="rai-link detail" onclick="raiuserpickerShow()"><i class="fas fa-plus-circle"></i> Add admin</span>
+		</div>
+		
+		<div class="rai-title-block"><div class="rai-title">Action</div></div>
+		<div class="rai-sub-block">
+			<span class="title">Remove</span>
+			<span onclick="remove()" class="detail rai-link red"><i class="far fa-trash-alt"></i> Remove module</span>
+		</div>
+	</div>
+	</form>
+
+	<style>
+		.rai-form-title{
+			color: #aaa;
+			font-weight: bold;
+			font-size: 0.9em;
+		}
+		.raiuserpicker-modal{
+			position: fixed;
+			z-index: 2;
+			background-color: rgba(255,255,255,0.9);
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			display: none;
+			animation-name: raiuserpicker-modal-fadeIn;
+			animation-duration: 0.4s;
+		}
+		.raiuserpicker-modal .content{
+			position: relative;
+			width: 50%;
+			margin: 3em auto;
+			background-color: #fff;
+			padding: 1em 2em;
+			border-radius: 1em;
+			box-shadow: 0 1em 8em 0 rgba(0, 0, 0, 0.15);
+			animation-name: raiuserpicker-modal-slideIn;
+			animation-duration: 0.4s;
+			transition-timing-function: ease-in;
+		}
+		.raiuserpicker-modal .content.dismiss{
+			animation-name: raiuserpicker-modal-slideOut;
+			animation-duration: 0.4s;
+			transition-timing-function: ease-in;
+		}
+		.raiuserpicker-modal.dismiss{
+			animation-name: raiuserpicker-modal-fadeOut;
+			animation-duration: 0.4s;
+		}
+
+		.raiuserpicker-modal .content .title{
+			color: #222;
+			line-height: 3em;
+			display: block;
+			font-size: 2em;
+			font-weight: bold;
+			text-align: center;
+		}
+		.raiuserpicker-modal .content .table-container{
+			overflow: scroll;
+			height: 50vh;
+		}
+		.raiuserpicker-modal .content .table-container table{
+			width: 100%;
+		}
+		.raiuserpicker-modal .content .table-container th{
+			text-transform: uppercase;
+			font-size: 0.75em;
+			color: #aaa;
+			background-color: #fff;
+			top: 0;
+			position: sticky;
+			padding-top: 1em;
+			padding-bottom: 0.5em;
+		}
+		.raiuserpicker-modal .content .table-container td{
+			white-space: nowrap;
+		}
+		.raiuserpicker-modal .content .table-container .table-row:hover{
+			cursor: pointer;
+			background-color: #f5f5f5;
+		}
+		.raiuserpicker-modal .content .rai-user-counter{
+			margin: 0.5em 0em;
+			font-weight: bold;
+			color: #ccc;
+		}
+		.raiuserpicker-modal .content .footer{
+			padding-top: 1em;
+		}
+
+		.rai-line{
+			border-top: solid 1px #ddd;
+		}
+		.raiuserpicker-modal .btn{
+			font-size: 1.1em;
+			border-radius: 0.5em;
+			font-weight: bold;
+		}
+
+		@keyframes raiuserpicker-modal-slideIn {
+			from 	{ bottom: -100vh;}
+			to 		{ bottom: 0;}
+		}
+		@keyframes raiuserpicker-modal-slideOut {
+			from 	{ bottom: 0;}
+			to 		{ bottom: -100vh;}
+		}
+		@keyframes raiuserpicker-modal-fadeIn {
+			from 	{ background-color: rgba(255,255,255,0.0);} 
+			to 		{ background-color: rgba(255,255,255,0.9);}
+		}
+		@keyframes raiuserpicker-modal-fadeOut {
+			from 	{ background-color: rgba(255,255,255,0.9);} 
+			to 		{ background-color: rgba(255,255,255,0.0);}
+		}
+
+		@media screen and (max-width: 1000px) and (min-height: 1000px){ /* Mobile */
+			.raiuserpicker-modal .content{
+				width: 95%;
+				margin: 5em auto;
+				padding: 1.5em 2em;
+				border-radius: 2em;
+				box-shadow: 0 1em 8em 0 rgba(0, 0, 0, 0.15);
+			}
+			.raiuserpicker-modal .content .title{
+				line-height: 2.5em;
+				font-size: 4em;
+			}
+			.rai-form-title{
+				font-size: 1.5em;
+			}
+			.raiuserpicker-modal .content .table-container{
+				height: 50vh;
+			}
+			.raiuserpicker-modal .content .table-container th{
+				font-size: 1.5em;
+				padding-top: 1em;
+				padding-bottom: 0.5em;
+			}
+			.raiuserpicker-modal .content .table-container td{
+				font-size: 2em;
+				padding-right: 1em;
+			}
+			.raiuserpicker-modal .content .rai-user-counter{
+				margin: 0.5em 0em;
+			}
+			.raiuserpicker-modal .content .footer{
+				padding-top: 1em;
+			}
+
+			.form-group .custom-select,.form-control{
+				border-radius: 0.3em;
+				font-size: 2em;
+			}
+
+			.raiuserpicker-modal .content .rai-user-counter{
+				font-size: 2em;
+			}
+			.raiuserpicker-modal .btn{
+				padding: 0.3em;
+				font-size: 2.5em;
+				border-radius: 0.5em;
+				font-weight: bold;
+			}
+		}
+	</style>
+	<div id="raiuserpicker" class="raiuserpicker-modal">
+		<div id="raiuserpicker-content" class="content">
+			<span class="title">Add Admin</span>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="email" class="rai-form-title">Sort</label>
+						<select name="cars" class="custom-select custom-select-sm" id="option-sort" onchange="reloadContent()">
+							{% for key in users_key_list %}<option value="{{key.key}}">{{key.display}}</option>{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="email" class="rai-form-title">Filter</label>
+						<select name="cars" class="custom-select custom-select-sm" id="option-filter" onchange="reloadContent()">
+							{% for filter in users_filter_list %}<option value="{{filter.key}}">{{filter.display}}</option>{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="email" class="rai-form-title">Search</label>
+						<div class="input-group float-right">
+							<input type="text" class="form-control form-control-sm" id="option-search" oninput="reloadContent()">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="table-container rai-line">
+				<table>
+					<thead>
+						<th>Gen</th>
+						<th>Username</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Nickname</th>
+					</thead>
+					<tbody id="content-table"></tbody>
+				</table>
+			</div>
+			<div class="rai-user-counter" id="user-counter"></div>
+			<div class="footer rai-line">
+				<button class="btn btn-light  w-100" onclick="raiuserpickerDismiss()">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	var module = {{ module_json|safe }};
+	var users = {{ users_json|safe }};
+
+	function getUserByID(id){
+		return users.find(function(item) { return item.id == id; });
+	}
+
+	d3.select('#info-name').on('input',function(){
+		d3.select('#module-name').text(this.value);
+		info_showSaveButton();
+	});
+	d3.select('#info-description').on('input',function(){
+		d3.select('#module-description').text(this.value);
+		info_showSaveButton();
+	});
+	d3.select('#info-path').on('input',info_showSaveButton);
+	d3.select('#info-is_show').on('input',info_showSaveButton);
+	d3.select('#info-icon').on('change',function(){
+		if (this.files && this.files[0]) {
+			d3.select('#info-icon-label').text(this.files[0].name);
+			info_showSaveButton();
+
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				d3.select('#img-icon').attr('src', e.target.result)
+			};
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+
+	d3.select('#info-is_show').property("checked",module.is_show);
+
+	let info_saveButton = d3.select('#info-save-btn');
+	// info_saveButton.style('display','none');
+	function info_showSaveButton(){
+		info_saveButton.style('display','block');
+	}
+
+	function remove(){
+		if(confirm('Remove module "{{module.name}}" ?'))
+			window.open('/modules/module_manager/view/{{module.id}}/remove','_self');
+	}
+	function removeIcon(){
+		if(confirm('Remove module icon ?'))
+			window.open('/modules/module_manager/view/{{module.id}}/removeicon','_self');
+	}
+
+	d3.select('#info-p'+(parseInt(module.accessibility)+1)).property('checked',true);
+
+	reloadAdminElement();
+	function reloadAdminElement(){
+		d3.select('#info-admin').property('value',JSON.stringify(module.admin));
+		let adminContent = d3.select('#info-admin-display').html('');
+		for(let i=0;i<module.admin.length;i++){
+			let _user = getUserByID(module.admin[i]);
+			let blockElement = adminContent.append('div').attr('class','block');
+			blockElement.append('span').attr('class','title').text(_user.first_name);
+			blockElement.append('span').attr('class','subtitle').text(' - '+_user.username);
+			blockElement.append('span').attr('class','remove-btn').on('click',function(){
+				adminRemove(_user.id);
+			}).append('i').attr('class','far fa-trash-alt');
+		}
+	}
+	function adminRemove(raiuser_id){
+		module.admin.splice(module.admin.indexOf(raiuser_id), 1);
+		reloadAdminElement();
+		info_showSaveButton();
+	}
+
+</script>
+
+<script>
+	d3.select('#option-sort').property('value','generation');
+
+	var contentTable = d3.select('#content-table');
+	reloadContent();
+	function reloadContent(){
+		contentTable.html('');
+		let temp_user = [];
+		let option_filter = d3.select('#option-filter').property('value').split('_');
+		if(option_filter[0] == 'all') temp_user = [...users];
+		else if(option_filter[0] == 'generation'){
+			temp_user = users.filter(function(item){ return item.generation == parseInt(option_filter[1])});
+		}
+		let option_search = d3.select('#option-search').property('value').toUpperCase();
+		if(option_search!=''){
+			temp_user = temp_user.filter(function(item){
+				if(item.username.toUpperCase().search(option_search) > -1) return true;
+				if(item.first_name.toUpperCase().search(option_search) > -1) return true;
+				if(item.last_name.toUpperCase().search(option_search) > -1) return true;
+				if(item.nickname.toUpperCase().search(option_search) > -1) return true;
+				if(String(item.generation).search(option_search) > -1) return true;
+				return false;
+			});
+		}
+		let option_sort_key = d3.select('#option-sort').property('value');
+		temp_user.sort((a,b) => (a[option_sort_key] > b[option_sort_key]) ? 1 : ((b[option_sort_key] > a[option_sort_key]) ? -1 : 0));
+		for(let index=0;index<temp_user.length;index++){
+			let user = temp_user[index];
+			let row = contentTable.append('tr').attr('class','table-row');
+			row.append('td').text(user.generation);
+			row.append('td').text(user.username);
+			row.append('td').text(user.first_name);
+			row.append('td').text(user.last_name);
+			row.append('td').text(user.nickname);
+			row.on('click',function(){
+				raiuserpickerSelected(user);
+			});
+		}
+		d3.select('#user-counter').text(temp_user.length+' user'+(temp_user.length>1?'s':''));
+	}
+
+	function raiuserpickerShow(){
+		d3.select('#raiuserpicker').style('display','block');
+	}
+	function raiuserpickerDismiss(){
+		let pickerModalElement = d3.select('#raiuserpicker');
+		let pickerModalContentElement = d3.select('#raiuserpicker-content');
+
+		pickerModalElement.classed('dismiss',true);
+		pickerModalContentElement.classed('dismiss',true);
+
+		setTimeout(function(){ 
+			pickerModalElement.style('display','none');
+			pickerModalElement.classed('dismiss',false);
+			pickerModalContentElement.classed('dismiss',false);
+		}, 400);
+	}
+	function raiuserpickerSelected(raiuser){
+		raiuserpickerDismiss();
+		module.admin.push(raiuser.id)
+		reloadAdminElement();
+		info_showSaveButton();
+	}
+	window.onclick = function(event) {
+		if (event.target == document.getElementById("raiuserpicker")) {
+			raiuserpickerDismiss()
+		}
+	}
+</script>
+
+{% endblock %}
+
+
+

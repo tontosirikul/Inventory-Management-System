@@ -1,0 +1,21 @@
+{% extends 'rai_home/module_base.html' %} {% load static %} {% block content %}
+
+<script>appendNavItem({'name':'Example App','url':'/modules/exampleapp'});</script>
+
+<h1 style="color: #333; font-weight: bold;">This is an example app</h1>
+<h3 style="color: #555;">with the default navigation bar</h3>
+<br>
+<p>The default navigation bar</p>
+<p>It already import</p>
+<a href="https://www.w3schools.com/bootstrap4/default.asp">w3schools - Bootstrap 4</a>
+<br>
+<a href="https://www.w3schools.com/icons/default.asp">w3schools - Icon</a>
+<br>
+<a href="https://d3js.org">3D.js</a>
+
+<br>
+<br>
+<button class="btn btn-primary" onclick="goto('/modules/exampleapp/page2')">next page</button>
+
+
+{% endblock %}

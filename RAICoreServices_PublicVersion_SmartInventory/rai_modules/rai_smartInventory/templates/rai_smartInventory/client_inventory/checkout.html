@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="{% static 'rai_smartInventory/inventory/bootstrap-datetimepicker.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+        <script src="{% static 'rai_smartInventory/inventory/bootstrap-datetimepicker.min.js' %}"></script>
+    <head>
+        <title>CheckOut</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+        <link rel="stylesheet" href="{% static 'rai_smartInventory/client_inventory/CheckOut_styles.css' %}">
+    </head>
+    <body>
+        <div id="containerMenu">
+            <div id="navbar">
+                <a id="menu" href="/modules/smart_inventory/homepage">Menu</a>
+                <a id="active" href="/modules/smart_inventory/homepage/request">Request</a>
+                <a id="notif" href="/modules/smart_inventory/homepage/checkout">Cart</a>
+                <a id="profile" href="/authen/login">Profile</a>
+                <a id="admin" href="/modules/smart_inventory/admin">Admin</a>
+            </div>
+        </div>
+        {% if items|length > 0 %}
+        <div class="cart_wrapper">
+            <div class="your_bag">YOUR BAG</div>
+        </div>
+        <div class="body_wrapper">
+            <div class="box">
+                    {% for item in items %}
+                    <div class="content">
+                        <img id="image" src="/media/{{item.product.image}}" alt="sample" title="sample" width="150px" height="150px">
+                        <div class="body">
+                            <div>Brand : {{item.product.brand}}</div>
+                            <div>Series : {{item.product.series}}</div>
+                        </div>
+                        <div class="delete_box">
+                            <button class="delete_button" onclick="window.open('/modules/smart_inventory/homepage/checkout/{{item.id}}/remove','_self')">X</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="submit_box">
+                        <button class="submit_button" onclick="goBack()">BACK</button>
+                    </div>
+            </div>
+            <!-- changes for date and time below -->
+            <div class="date">
+                <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <input type='text' class="form-control" id='date' placeholder="Pick up date" name="demand_date">
+              <script>
+                  $(function () {
+                      $('[id=date]').datetimepicker();
+                  });
+              </script>
+                    </div>
+                    <div class="submit_box">
+                        <button class="submit_button" onclick="window.location.href = 'success';">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <div class="cart_wrapper">
+                <div class="your_bag">YOUR BAG IS EMPTY</div>
+            </div>
+            <!-- end of changes -->
+        </div>
+        {% endif %}
+        <!-- <div class="cart_wrapper">
+            <div class="your_bag">YOUR BAG IS EMPTY</div>
+        </div> -->
+        <script type="text/javascript" src="{% static 'rai_smartInventory/client_inventory/scripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    </body>
+</html>

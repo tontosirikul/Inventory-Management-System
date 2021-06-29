@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static "rai_smartInventory/inventory/site.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+   <style> 
+        .image-preview 
+        {
+        width: 150px; 
+        min-height: 150px; 
+        border: 2px solid #dddddd; 
+        margin: auto; 
+        
+        
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-weight: bold; 
+        color: 11#cccccc; 
+        } 
+        .image-preview__image 
+        { 
+        display: none; 
+        width: 100%; 
+        }
+        #statSwitch{
+         margin: auto;
+        }
+        .page-footer{
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        }
+        .bg-modal{
+          width: 100%;
+          height: 100%;
+          background-color:rgba(0, 0, 0, 0.7);
+          position: absolute;
+          top: 0;
+          display: none;
+          justify-content: center;
+          align-items: center;
+        }
+        .modal-content{
+          width: 500px;
+          height: 300px;
+          background-color: white;
+          border-radius: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+        }
+        .group-text-pop{
+          margin: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .danger-text{
+          color: red;
+        }
+    
+    </style>
+    <title>Group of Item</title>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/modules/smart_inventory/admin/management/{{group.id}}">
+          <img src="{% static "rai_smartInventory/inventory/inventory_icon.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+          {{group.brand}}/{{group.series}}
+        </a>
+        <!-- <a href="">
+          <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add Categories</button>
+          </a> -->
+    </nav>
+</head>
+<body>
+    <div class="container-sm">
+      <br>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- <div class="form-group">
+          <div class="image-preview" id="imagePreview">
+            <img src="" alt="Image Preview" class="image-preview__image">
+            <span class="image-preview__default-text">Image Preview</span>
+          </div>
+          <br>
+          <input type="file" class="form-control-file border" id="inpFile" name="inpFile">
+        </div>
+        <div class="input-group mb-3">
+          <select name="categories" class="custom-select" value="{{category.id}}">
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+          </select>
+          </div> -->
+        <!-- <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Detail</span>
+          </div>
+          <input type="text" class="form-control" placeholder="Brand" value="{{group.brand}}" name="brand">
+          <input type="text" class="form-control" placeholder="Series" value="{{group.series}}" name="series">
+        </div> -->
+        <!-- <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >Serial No.</span>
+          </div>
+          <input type="text" class="form-control" name="serial" value="{{group.serial}}" onkeyup="this.value = this.value.toUpperCase();">
+        </div> -->
+        <!-- <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Carbinet</span>
+          </div>
+          <input type="text" class="form-control" name="cabinet" value="{{item.cabinet}}">
+        </div> -->
+        <!-- <div class="form-group">
+          <textarea class="form-control" rows="2" id="comment" placeholder="Description" value="{{group.description}}" name="description">{{group.description}}</textarea>
+        </div> -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Serial No." value="{{item.serial}}" name="serial">
+            <input type="text" class="form-control" placeholder="Carbinet" value="{{item.cabinet}}" name="cabinet">
+        </div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="switch1" name="status" value="True" {% if item.status == 'Available' %} checked{% endif %}>
+          <label class="custom-control-label" for="switch1">Active status</label>
+        </div>
+        <br>
+          <button type="submit" class="btn btn-primary">SAVE</button>
+          <button type="button" class="btn btn-secondary" onclick="window.open('/modules/smart_inventory/admin/management/{{group.id}}','_self')">CANCEL</button>
+          {% if remove != 0 %}
+          <button type="button" id='remove-but'class="btn btn-danger")">REMOVE</button>
+          {% endif %}
+        </form>
+    </div>
+    <br><br>
+    
+    <div class="container-sm">
+    {% if item.created != '' %} 
+    <label>Create:</label>
+    <span id="item-created">Create</span>
+    {% endif %}
+    {% if item.last_edited != '' %}
+    <label>Last edited:</label>
+    <span id="item-last_edited">Last edited</span>
+    {% endif %}
+    </div>
+    
+</body>
+<div class="bg-modal">
+  <div class="modal-content">
+        <div class="group-text-pop">
+        {% if item.is_assigned == False %}
+        <h3>Are you sure you would like to remove this item from database.</h3>
+        <h3 class="danger-text">All of the history of this item will be automatically remove.</h3>
+        </div>
+          <div class="group-button">
+        <button type="button" class="btn btn-danger" onclick="window.open('/modules/smart_inventory/admin/anagement/{{group.id}}/edititem/{{item.id}}/removeitem','_self')">REMOVE</button>
+        {% else %}
+        <h3>This Item has been assigned.</h3>
+        {% endif %}
+        <button id='close' type="button" class="btn btn-secondary")">CANCEL</button>
+        </div>
+  </div>
+</div>
+</html>
+<script> 
+  document.getElementById('item-last_edited').innerHTML = (new Date('{{item.last_edited}}')).toLocaleString('en-GB');
+  document.getElementById('item-created').innerHTML = (new Date('{{item.created}}')).toLocaleString('en-GB');
+  document.getElementById('remove-but').addEventListener('click',
+  function(){
+    document.querySelector('.bg-modal').style.display = 'flex'
+  });
+  document.getElementById('close').addEventListener("click", 
+  function() {
+	  document.querySelector('.bg-modal').style.display = "none";
+  });
+</script>

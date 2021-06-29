@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>RAI Smart Inventory</title>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="{% static "rai_smartInventory/inventory/railogo.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+          RAI Smart Inventory
+        </a>
+    </nav>
+    <style>
+    .card-deck{
+        display: flex;
+        padding: 50px;
+        /* min-height: 100vh; */
+    }
+    .card{
+        padding:10px;
+        margin: 10px;
+    }
+    .card-title{
+        text-align: center;
+    }
+    .card-text{
+        text-align: center;
+    }
+    .myImage{
+        padding: 10px;
+        margin: auto;
+        display: block;
+        width:1470px;
+        max-width: 100%;
+        height:auto;
+    }
+    .container{
+      
+    }
+    a {
+      color:inherit;
+      text-decoration: none;
+    }
+    </style>
+</head>
+
+
+<body>
+  <!-- <img class="myImage" src="images/frank-wang-4r9tYHlwTL8-unsplash.jpg"> -->
+  <div class="card-deck ">
+    <a href="management/">
+      <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Inventory Management</h5>
+        <!-- <img src="{% static "inventory/document.png" %}" class="card-img-top" alt="..."> -->
+        
+          <p class="card-text">This section used to add, edit, remove item.</p>
+        </div>
+      </a>
+      </div>
+    <a href="requestlist/">
+    <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">Request lists</h5>
+      <!-- <img src="{% static "inventory/request.png" %}" class="card-img-top" alt="..."> -->
+      
+      <p class="card-text">This section is used for approving the items-request from RAI students.</p>
+      </div>
+    </a>
+    </div>
+
+    <a href="history/">
+    <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">History</h5>
+      <!-- <img src="{% static "inventory/clock.png" %}" class="card-img-top" alt="..."> -->
+      
+        <p class="card-text">This section used to see the changed logs and past requests and return.</p>
+      </div>
+    </a>
+    </div>
+
+  
+  </div>
+  <div class="container">
+
+    
+  
+    <hr class="mt-2 mb-5">
+  
+    <div class="row text-center">
+  
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/__LXdDYiL-w/800x600" alt="">
+            </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/DiTiYQx0mh4/800x600" alt="">
+            </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/2EJCSULRwC8/800x600" alt="">
+            </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href="#" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/NN9HQkDgguc/800x600" alt="">
+            </a>
+      </div>
+      
+      
+      
+      
+    </div>
+  
+  </div>
+</body>
+
+<!-- <footer class="page-footer font-small black"> -->
+  <!-- Copyright -->
+  <!-- <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://krai.io"> Robotics and AI engineering, KMITL</a>
+  </div> -->
+  <!-- Copyright -->
+<!-- </footer> -->
+
+</html>

@@ -1,0 +1,44 @@
+html body{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-style: normal;
+    background-color: white;
+    font-size: 18px;
+}
+.containerMenu{
+    display: block;
+}
+#navbar {
+    background: white;
+    width: 100%;
+    transition: top 0.8s;
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    border-bottom: solid 2px black;
+}
+  
+#navbar a{
+    padding: 5px;
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0.25em 0.5em;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+#navbar a:hover{
+    color: rgba(0, 0, 255, 0.95);
+}
+  
+#navLine{
+    width: 100%;
+}
+
+.body{
+    padding: 30px;
+    padding-top: 70px;
+    font-size: 1.5em;
+    font-weight: 800;
+}

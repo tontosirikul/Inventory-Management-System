@@ -1,0 +1,82 @@
+{% extends 'authen_base.html' %} {% load static %} {% block content %}
+<style media="screen">
+	.main{
+		margin-top:12vmin;
+	}
+	body{
+		background-color: #222;
+	}
+	/* .div-r{
+		margin-top:10vmin;
+	} */
+	.div-l{
+		background-color:#fff;
+		border: transparent solid;
+		border-radius: 10px;
+		padding: 3vmin;
+	}
+	h1{
+		font-size: 6vmin;
+		color: #ddd;
+		margin-bottom: 3vmin;
+	}
+	.back{
+		margin-top: 2vmin;
+
+	}
+	a{
+		color: #666;
+	}
+	a:hover{
+		color: #aaa;
+		 text-decoration: none;
+	}
+</style>
+<div class="container">
+	<div class="row main">
+		<div class="col-3"></div>
+		<div class="col-6">
+			<h1>Registration</h1>
+			<div class="div-l">
+				<p class="text-danger" style="margin-bottom:0px;">{{ messages }}</p>
+				<form method="post">{% csrf_token %}
+					<div class="form-group">
+						<label for="username">บัญชีผู้ใช้</label>
+						<input type="text" class="form-control" name="username">
+					</div>
+					<div class="form-group">
+						<label for="first_name">ชื่อ</label>
+						<input type="text" class="form-control" name="first_name">
+					</div>
+					<div class="form-group">
+						<label for="last_name">นามสกุล</label>
+						<input type="text" class="form-control" name="last_name">
+					</div>
+					<div class="form-group">
+						<label for="password">รหัสผ่าน</label>
+						<input type="password" class="form-control" name="password">
+					</div>
+					<div class="form-group">
+						<label for="password">รหัสผ่าน(อีกครั้ง)</label>
+						<input type="password" class="form-control" name="confirm_password">
+					</div>
+					<button type="submit" class="btn btn-dark">บันทึก</button>
+				</form>
+			</div>
+			<p class="back"><a href="{% url 'web_users' %}"><i class='fas fa-angle-left'></i> กลับไปหน้ารวมบัญชีผู้ใช้</a></p>
+		</div>
+	</div>
+
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}

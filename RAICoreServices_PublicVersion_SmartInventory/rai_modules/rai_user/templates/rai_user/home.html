@@ -1,0 +1,278 @@
+{% extends 'rai_home/module_base.html' %} {% load static %} {% block content %}
+
+<script>appendNavItem({'name':'User','url':'/modules/user'});</script>
+
+<style>
+	body{
+		font-family: Arial, Helvetica, sans-serif;
+		margin: 0px;
+		background-color: #fff;
+	}
+
+	.rai-title-block{
+		display: flex;
+		justify-content: space-between;
+		align-items:flex-start;
+		border-bottom: solid 1px #ddd;
+		margin-left: 1em;
+		margin-bottom: 1em;
+		padding-bottom: 0.5em;
+	}
+	.rai-title-block .rai-title{
+		font-weight: bold;
+		color: #222;
+		font-size: 1.5em;
+		/* margin: 0.5em; */
+		display: inline-block;
+	}
+	.rai-title-block .rai-title-btn{
+		font-size: 0.9em;
+		color: #343a40;
+		background-color: #fff;
+		border: solid 1px #343a40;
+		padding: 0.2em 0.6em;
+		border-radius: 0.3em;
+		display: inline-block;
+		font-weight: bold;
+		cursor: pointer;
+		margin-left: 0.2em;
+	}
+	.rai-title-block .rai-title-btn:hover{
+		color: #fff;
+		background-color: #343a40;
+	}
+
+	.rai-main-container{
+		display: block;
+		margin: 0em;
+		min-height: 80vh;
+	}
+
+	.rai-module-block{
+		display: inline-block;
+		border-radius: 0.75em;
+		width: 100%;
+		padding: 0.5em 1em;
+	}
+	.rai-module-block:hover{
+		background-color: #f9f9f9;
+		cursor: pointer;
+	}
+
+	.rai-module-block .body{
+		display: flex;
+	}
+
+	.rai-module-block img{
+		float: left;
+		height: 3.5em;
+		width:  3.5em;
+		border-radius: 50%;
+	}
+	.rai-module-block .content{
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+	.rai-module-block .content .col{
+		display: block;
+		padding: 0em 1em;
+		width: 100%;
+	}
+
+	.rai-module-block .title{
+		width: 80%;
+		font-weight: bold;
+		color: #333;
+		font-size: 1.2em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.rai-module-block .subtitle{
+		width: 80%;
+		font-size: 1em;
+		line-height: 1.1em;
+		color: #aaa;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.table-container{
+		overflow-x: scroll;
+	}
+	table{
+		width: 100%;
+		margin-top: 1em;
+	}
+	th{
+		text-transform: uppercase;
+		font-size: 0.75em;
+		padding-left: 1.4em;
+		color: #aaa;
+	}
+	td{
+		padding-left: 1em;
+		white-space: nowrap;
+	}
+	.table-row:hover{
+		cursor: pointer;
+		background-color: #f5f5f5;
+	}
+
+	.rai-option-block{
+		margin-left: 1em;
+		border-bottom: solid 1px #ddd;
+	}
+
+	.rai-form-title{
+		color: #aaa;
+		font-weight: bold;
+		font-size: 0.9em;
+	}
+
+	.rai-user-counter{
+		margin-left: 1em;
+		margin-top: 1em;
+		font-weight: bold;
+		color: #ccc;
+	}
+
+</style>
+
+<div class="rai-main-container">
+	<div class="rai-title-block">
+		<div class="rai-title">All Users</div>
+		<div>
+			<button class="rai-title-btn" data-toggle="collapse" data-target="#rai-option-block"><i class="fas fa-eye"></i> View Option</button>
+			<a href="/modules/user/view/0"><button class="rai-title-btn"><i class="fas fa-user-plus"></i> Create</button></a>
+		</div>
+	</div>
+
+	<div class="rai-option-block collapse" id="rai-option-block">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="email" class="rai-form-title">Sort</label>
+					<select name="cars" class="custom-select custom-select-sm" id="option-sort" onchange="reloadContent()">
+						{% for key in users_key_list %}
+						<option value="{{key.key}}">{{key.display}}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="email" class="rai-form-title">Filter</label>
+					<select name="cars" class="custom-select custom-select-sm" id="option-filter" onchange="reloadContent()">
+						{% for filter in users_filter_list %}
+						<option value="{{filter.key}}">{{filter.display}}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="email" class="rai-form-title">Search</label>
+					<div class="input-group float-right">
+						<input type="text" class="form-control form-control-sm" id="option-search" oninput="reloadContent()">
+						<div class="input-group-append">
+							<button class="btn btn-dark btn-sm" type="button" onclick="reloadContent()"><i class="fas fa-search"></i></button> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+
+			
+		
+	</div>
+
+	<div class="table-container">
+		<table>
+			<thead>
+				<th>Username</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Nickname</th>
+				<th>Gen</th>
+			</thead>
+			<tbody id="content-table"></tbody>
+		</table>
+		<div class="rai-user-counter" id="user-counter"></div>
+	</div>
+	
+	<div class="row">
+		<!-- {% for user in users %}
+		<a class="rai-link col-3" href="/modules/user/view/{{user.id}}">
+			<div class="rai-module-block">
+				<div class="body">
+					<img src="{% static 'rai_home/images/user.png' %}">
+					<div class="content">
+						<div class="col">
+							<div class="title">{{user.first_name}} {{user.last_name}}</div>
+							{% if user.is_staff %}
+							<div class="subtitle">Staff – {{user.username}}</div>
+							{% else %}
+							<div class="subtitle">Gen {{user.generation}} – {{user.username}}</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		{% endfor %} -->
+	</div>
+</div>
+
+<script>
+	var users = {{ users_json|safe }};
+
+	d3.select('#option-sort').property('value','generation');
+
+	var contentTable = d3.select('#content-table');
+	reloadContent();
+	function reloadContent(){
+		contentTable.html('');
+		let temp_user = [];
+		let option_filter = d3.select('#option-filter').property('value').split('_');
+		if(option_filter[0] == 'all') temp_user = [...users];
+		else if(option_filter[0] == 'generation'){
+			temp_user = users.filter(function(item){ return item.generation == parseInt(option_filter[1])});
+		}
+		let option_search = d3.select('#option-search').property('value').toUpperCase();
+		if(option_search!=''){
+			temp_user = temp_user.filter(function(item){
+				if(item.username.toUpperCase().search(option_search) > -1) return true;
+				if(item.first_name.toUpperCase().search(option_search) > -1) return true;
+				if(item.last_name.toUpperCase().search(option_search) > -1) return true;
+				if(item.nickname.toUpperCase().search(option_search) > -1) return true;
+				if(String(item.generation).search(option_search) > -1) return true;
+				return false;
+			});
+		}
+		let option_sort_key = d3.select('#option-sort').property('value');
+		temp_user.sort((a,b) => (a[option_sort_key] > b[option_sort_key]) ? 1 : ((b[option_sort_key] > a[option_sort_key]) ? -1 : 0));
+		for(let index=0;index<temp_user.length;index++){
+			let user = temp_user[index];
+			let row = contentTable.append('tr').attr('class','table-row');
+			row.append('td').text(user.username);
+			row.append('td').text(user.first_name);
+			row.append('td').text(user.last_name);
+			row.append('td').text(user.nickname);
+			row.append('td').text(user.generation);
+			row.on('click',function(){
+				window.open('/modules/user/view/'+user.id,'_self');
+			});
+		}
+		d3.select('#user-counter').text(temp_user.length+' user'+(temp_user.length>1?'s':''));
+	}
+</script>
+
+
+{% endblock %}
+
+
+

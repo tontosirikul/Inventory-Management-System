@@ -1,0 +1,48 @@
+{% extends 'authen_base.html' %} {% load static %} {% block content %}
+
+<div class="popup-panel">
+	<div class="body body-center">
+		<form method="post" class="content">{% csrf_token %}
+			{% if request.user.is_authenticated %}
+				<!-- <span class="title">Welcome</span> -->
+				<div class="info-card">
+					{% if raiuser.image == '' or request.user.is_authenticated == False %}
+					<img class="img" src="{% static 'rai_home/images/user.png' %}">
+					{% else %}
+					<img class="img" src="/media/{{raiuser.image}}">
+					{% endif %}
+					<span class="text">{{request.user.username}}</span>
+					<span class="text2">{{request.user.first_name}} {{request.user.last_name}}</span>
+					<span class="text3">{{raiuser.nickname}} – Generation {{raiuser.generation}}</span>
+					<div class="text4-block">
+						<span class="text4"><i class="fas fa-phone"></i>
+							{% if raiuser.phone != '' %}{{raiuser.phone}}{% else %}unknown{% endif %}
+						</span>
+						<span class="text4"><i class="fas fa-envelope"></i> 
+							{% if raiuser.email != '' %}{{raiuser.email}}{% else %}unknown{% endif %}
+						</span>
+						<span class="text4"><i class="fab fa-line"></i>
+							{% if raiuser.line_userid != '' %} connected{% else %}not connect{% endif %}
+						</span>
+					</div>
+				</div>
+				<button type="button" class="btn btn2" onclick="goto('/authen/info')">Edit Information</button>
+				<button type="button" class="btn" onclick="goto('/authen/logout')">Logout</button>
+			{% else %}
+				<span class="title">Login</span>
+				<span class="error-msg">{{login_msg}}</span>
+				<div class="form-group">
+					<input type="username" name="username" placeholder="Username">
+					<input type="password" name="password" placeholder="Password">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="checkbox-remember" name="remember">
+						<label class="custom-control-label" for="checkbox-remember">Remember me for a month</label>
+					</div>
+				</div>
+				<button class="btn" type="submit">Login</button>
+			{% endif %}
+		</form>
+		<span class="close-btn" onclick="goto('/')">Go Back</span>
+	</div>
+</div>
+{% endblock %}

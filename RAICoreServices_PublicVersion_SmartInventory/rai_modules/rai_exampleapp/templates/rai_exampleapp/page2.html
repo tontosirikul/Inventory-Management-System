@@ -1,0 +1,19 @@
+{% extends 'rai_home/module_base.html' %} {% load static %} {% block content %}
+
+<script>appendNavItem({'name':'Example App','url':'/modules/exampleapp'});</script>
+<script>appendNavItem({'name':'Page 2','url':'/modules/page2'});</script>
+
+<h1 style="color: #333; font-weight: bold;">This is the second page</h1>
+<h3 style="color: #555;">with the default navigation bar</h3>
+
+<p>You can see the navigation bar. Another link has been added.</p>
+<br>
+<p>You can ignore the default navigation bar and use your own navigation bar</p>
+<p>You can use normal html page as well</p>
+
+<br>
+<br>
+<button class="btn btn-secondary" onclick="goto('/modules/exampleapp/')">previous page</button>
+<button class="btn btn-primary" onclick="goto('/modules/exampleapp/page3')">next page</button>
+
+{% endblock %}

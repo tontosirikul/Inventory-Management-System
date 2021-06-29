@@ -1,0 +1,314 @@
+{% extends 'rai_home/module_base.html' %} {% load static %} {% block content %}
+
+<script>
+appendNavItem({'name':'User','url':'/modules/user'});
+appendNavItem({'name':'{{user.username}}','url':'/modules/user/view/{{user.id}}/'});
+</script>
+
+<style>
+	body{
+		font-family: Arial, Helvetica, sans-serif;
+		margin: 0px;
+		background-color: #fff;
+	}
+
+	.rai-title-block{
+		display: flex;
+		/* justify-content: space-between; */
+		align-items:flex-start;
+		border-top: solid 1px #ddd;
+		margin-top: 2em;
+		padding-top: 0.4em;
+	}
+	.rai-title-block .rai-title{
+		font-weight: bold;
+		color: #222;
+		font-size: 1.3em;
+		/* margin: 0.5em; */
+		display: inline-block;
+	}
+	.rai-section-subtitle{
+		font-weight: bold;
+		color: #bbb;
+		font-size: 1.1em;
+		display: inline-block;
+		margin-top: 1.5em;
+	}
+	.rai-section-subtitle .far, .rai-section-subtitle .fas{
+		margin-right: 0.2em;
+	}
+
+
+	.rai-main-container{
+		display: block;
+		margin: 0em;
+		min-height: 80vh;
+	}
+
+	.rai-module-block{
+		display: inline-block;
+		border-radius: 0.75em;
+		width: 100%;
+		padding: 0.9em 1em;
+		border-radius: 0.75em;
+	}
+	.rai-module-block .body{
+		display: flex;
+	}
+
+	.rai-module-block img{
+		float: left;
+		height: 5em;
+		width:  5em;
+		border-radius: 50%;
+		border: solid #f2f2f2 1.5px;
+	}
+	.rai-module-block .content{
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+	.rai-module-block .content .col{
+		padding: 0em 1.5em;
+	}
+	.rai-module-block .title{
+		font-weight: bold;
+		color:#222;
+		font-size: 2em;
+		line-height: 1.2em;
+		white-space: nowrap;
+		overflow: hidden;
+		/* text-overflow: ellipsis; */
+	}
+	.rai-module-block .subtitle{
+		width: 100%;
+		font-size: 1.2em;
+		color: #999;
+		/* white-space: nowrap; */
+		/* text-overflow: ellipsis; */
+	}
+
+
+	.rai-sub-block{
+		flex-grow: 1;
+		margin-top: 1em;
+	}
+	.rai-sub-block .title{
+		font-size: 0.9em;
+		color: #ccc;
+		font-weight: normal;
+		display: block;
+	}
+	.rai-sub-block .detail{
+		font-size: 1em;
+		color: #444;
+		font-weight: normal;
+		display: block;
+		padding: 0em;
+		border: none;
+		width: 100%;
+		border-bottom: solid #fff 2px;
+	}
+	.rai-sub-block .detail:focus{
+		outline: none;
+		border-bottom-color: #007bff;
+	}
+	.rai-block-btn{
+		margin-top: 1em;
+	}
+
+	.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before {
+		background-color: #ccc;
+		border: none;
+	}
+
+	input[type="file"] {
+		display: none;
+	}
+	/* .rai-input-file::-webkit-file-upload-button {
+		visibility: hidden;
+	} */
+	.rai-input-file{
+		/* display: none; */
+	}
+
+	.rai-input-file-block{
+		display: inline-block;
+		margin-right: 0.8em;
+	}
+	
+	#info-save-btn{
+		/* display: block; */
+		float:right;
+	}
+
+		
+</style>
+<div class="rai-main-container">
+	<div class="rai-module-block">
+		<form method="post" enctype="multipart/form-data">{% csrf_token %}
+			<div class="body">
+				{% if user.image == '' %}
+					<img id="img-icon" src="{% static 'rai_home/images/user.png' %}">
+				{% else %}
+					<img id="img-icon" src="/media/{{user.image}}">
+				{% endif %}
+				<div class="content">
+					<div class="col">
+						<div class="title">
+							<span id="user-fullname"">
+								{{user.first_name}}
+								{{user.last_name}}
+							</span>
+							<button id="info-save-btn" class="btn btn-outline-primary" type="submit"><i class="far fa-save"></i> save</button>
+						</div>
+						<div class="subtitle" id="user-username">{{user.username}}</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="rai-section-subtitle"><i class="far fa-address-card"></i> General</div> -->
+			<div class="rai-title-block">
+				<div class="rai-title">Information</div>
+			</div>
+			<div class="row">
+				<div class="rai-sub-block col-4">
+					<span class="title">First Name</span>
+					<input type="text" class="detail" name="info-first_name" id="info-first_name" placeholder="Empty" value="{{user.first_name}}" required>
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Last Name</span>
+					<input type="text" class="detail" name="info-last_name" id="info-last_name" placeholder="Empty" value="{{user.last_name}}">
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Nickname</span>
+					<input type="text" class="detail" name="info-nickname" id="info-nickname" placeholder="Empty" value="{{user.nickname}}">
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Phone</span>
+					<input type="text" class="detail" name="info-phone" id="info-phone" placeholder="Empty" value="{{user.phone}}">
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Email</span>
+					<input type="text" class="detail" name="info-email" id="info-email" placeholder="Empty" value="{{user.email}}">
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Line UserID</span>
+					<input type="text" class="detail" name="info-line_userid" id="info-line_userid" placeholder="Empty" value="{{user.line_userid}}">
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Generation</span>
+					<input type="number" class="detail" name="info-generation" id="info-generation" placeholder="Empty" value="{% if user.generation != None %}{{user.generation}}{% endif %}">
+				</div>
+				<div class="rai-sub-block col-4">
+					<span class="title">Picture</span>
+					{% if user.image != '' %}
+					<div class="rai-input-file-block">
+						<span onclick="removeIcon()" class="detail rai-link red"><i class="far fa-times-circle"></i> Remove</span>
+					</div>
+					{% endif %}
+					<div class="rai-input-file-block">
+						<input type="file" name="info-image" id="info-image" class="rai-input-file" accept="image/*">
+						<label class="detail rai-link" for="info-image"><i class="far fa-file-image"></i> <span id="info-image-label">Upload</span></label>
+					</div>
+				</div>
+			</div>
+
+			<div class="rai-title-block"><div class="rai-title">Account</div></div>
+			<div class="row">
+				<div class="rai-sub-block col-12">
+					<span class="title">Username</span>
+					<input type="text" class="detail" name="info-username" id="info-username" placeholder="Empty" value="{{user.username}}" required>
+				</div>
+				<div class="rai-sub-block col-12">
+					<span class="title">Password</span>
+					<input type="text" class="detail" name="info-password" id="info-password" placeholder="Empty" value="">
+					<span onclick="resetPassword()" class="detail rai-link red"><i class="fas fa-redo"></i> Reset</span>
+				</div>
+			</div>
+
+			<div class="rai-title-block"><div class="rai-title">Advance</div></div>
+			<div class="row">
+				<div class="rai-sub-block col-12">
+					<span class="title">Active</span>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="info-is_active" name="info-is_active" {% if user.is_active %}checked{% endif %}>
+						<label class="custom-control-label detail" for="info-is_active">This user is active</label>
+					</div>
+				</div>
+				<div class="rai-sub-block col-12">
+					<span class="title">Remove</span>
+					<span onclick="remove()" class="detail rai-link red"><i class="far fa-trash-alt"></i> Remove User</span>
+				</div>
+				
+			</div>
+
+		</form>
+		
+		<!-- <div class="rai-title-block"><div class="rai-title">Statistic</div></div> -->
+		
+
+		
+
+	</div>
+	
+	
+</div>
+
+<script>
+	var user = {{ user_json|safe }};
+
+	let labelFullname = d3.select('#user-fullname');
+	let inputFirstName = d3.select('#info-first_name');
+	let inputLastName = d3.select('#info-last_name');
+	inputFirstName.on('input',function(){
+		labelFullname.text(inputFirstName.property('value')+' '+inputLastName.property('value'));
+	});
+	inputLastName.on('input',function(){
+		labelFullname.text(inputFirstName.property('value')+' '+inputLastName.property('value'));
+	});
+	d3.select('#info-username').on('input',function(){
+		d3.select('#user-username').text(this.value);
+	});
+	// d3.select('#info-path').on('input',info_showSaveButton);
+	// d3.select('#info-is_show').on('input',info_showSaveButton);
+	d3.select('#info-image').on('change',function(){
+		if (this.files && this.files[0]) {
+			d3.select('#info-image-label').text(this.files[0].name);
+			// info_showSaveButton();
+
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				d3.select('#img-icon').attr('src', e.target.result)
+			};
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+
+	// d3.select('#info-is_show').property("checked",module.is_show);
+
+	// let info_saveButton = d3.select('#info-save-btn');
+	// info_saveButton.style('display','none');
+	// function info_showSaveButton(){
+	// 	info_saveButton.style('display','inline-block');
+	// }
+
+	function remove(){
+		if(confirm('Remove user "{{user.username}}" ?'))
+			window.open('/modules/user/view/{{user.id}}/remove','_self');
+	}
+	function removeIcon(){
+		if(confirm('Remove user image ?'))
+			window.open('/modules/user/view/{{user.id}}/removeimage','_self');
+	}
+	function resetPassword(){
+		let result		= '';
+		let characters	= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*+-={}[]()';
+		for (let i=0;i<16;i++) {
+			result += characters.charAt(Math.floor(Math.random() * characters.length));
+		}
+		d3.select('#info-password').property('value',result);
+	}
+
+</script>
+
+{% endblock %}

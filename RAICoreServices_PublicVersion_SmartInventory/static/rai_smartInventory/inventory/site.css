@@ -1,0 +1,26 @@
+.card-deck{
+    padding: 50px;
+    /* min-height: 100vh; */
+}
+.card-img-top{
+    padding: 20px;
+    align-self: center;
+    width: 30%;    
+}
+.page-footer{
+    align-self: end;
+}
+.myImage{
+    padding: 10px;
+    margin: auto;
+    display: block;
+    width:1470px;
+    max-width: 100%;
+    height:auto;
+}
+/* .page-footer{
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+} */

@@ -1,0 +1,311 @@
+
+<html>
+
+{% load static %}
+
+<title>RAI Laboratory - Account</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<!-- Icon -->
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+<link rel="shortcut icon" type="image/png"	 href="{% static 'rai_home/favicon/lab-32.png' %}"/>
+<link rel="apple-touch-icon" 				 href="{% static 'rai_home/favicon/lab-80.png' %}"> <!-- iPhone -->
+<link rel="apple-touch-icon" sizes="152x152" href="{% static 'rai_home/favicon/lab-152.png' %}"> <!-- iPad -->
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'rai_home/favicon/lab-180.png' %}"> <!-- iPhone-retina -->
+<link rel="apple-touch-icon" sizes="167x167" href="{% static 'rai_home/favicon/lab-167.png' %}"> <!-- iPad-retina -->
+
+<meta name="apple-mobile-web-app-title" content="RAI Lab">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+<meta name="viewport" content="width=device-width">
+
+<style>
+	body{
+		font-family: Arial, Helvetica, sans-serif;
+		background-color: #fff;
+		margin: 0;
+	}
+	a:hover{
+		cursor: pointer;
+		text-decoration: none;
+		color: #36f;
+	}
+	.popup-panel .body{
+		width: 18em;
+		display: block;
+		margin: 4em auto;
+	}
+	.popup-panel .body.body-center{
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.popup-panel .body .close-btn{
+		font-size: 1em;
+		font-weight: bold;
+		display: block;
+		margin-top: 0.8em;
+		text-align: center;
+		color:#007bff;
+		cursor: pointer;
+	}
+	.popup-panel .body .close-btn:hover{
+		color:#36f;
+	}
+
+	.popup-panel .body .content{
+		width: 100%;
+	}
+	.popup-panel .body .content .title{
+		color: #333;
+		font-size: 2.7em;
+		font-weight: bold;
+		text-align: center;
+		display: block;
+	}
+	.popup-panel .body .content .error-msg{
+		color: #dc3545;
+		font-size: 1em;
+		line-height: 1.2em;
+		display: block;
+		text-align: center;
+	}
+	.popup-panel .body .content .text{
+		color: #555;
+		font-size: 1.1em;
+		line-height: 1.2em;
+		display: block;
+		text-align: center;
+		margin-bottom: 0.5em;
+	}
+	.popup-panel .body .content .form-group{
+		margin-top: 1.2em;
+		margin-bottom: 1.5em;
+	}
+	.popup-panel .body .content .form-group label{
+		font-size: 1em;
+		margin-top: 0.5em;
+		color: #666;
+	}
+	.popup-panel .body .content .form-group input{
+		-webkit-appearance: none;
+		-moz-appearance: none;
+
+		width: 100%;
+		display: block;
+		margin-bottom: 0.5em;
+		border: none;
+		padding: 0.5em;
+		border-radius: 0.5em;
+		border: solid 2px #eee;
+	}
+	.popup-panel .body .content .form-group input:focus{
+		outline: none;
+		border-color:#007bff;
+	}
+	.popup-panel .body .content .form-group input:disabled {
+		color: #aaa;
+		font-weight: bold;
+	}
+
+	.popup-panel .body .content .info-card{
+		margin-top: 1.2em;
+		margin-bottom: 2em;
+		text-align: center;
+	}
+	.popup-panel .body .content .info-card .img{
+		display: block;
+		width: 	6em;
+		height: 6em;
+		margin: auto;
+		margin-bottom: 1em;
+		border-radius: 50%;
+	}
+	.popup-panel .body .content .info-card .text{
+		display: block;
+		color: #333;
+		font-size: 1.7em;
+		margin-bottom: 0.2em;
+	}
+	.popup-panel .body .content .info-card .text2{
+		display: block;
+		color: #999;
+		font-size: 1.2em;
+		line-height: 1.6em;
+	}
+	.popup-panel .body .content .info-card .text3{
+		display: block;
+		color: #ccc;
+		font-size: 0.8em;
+		line-height: 1.6em;
+	}
+	.popup-panel .body .content .info-card .text4-block{
+		text-align: left;
+		display: inline-block;
+		margin: auto;
+		margin-top: 1em;
+	}
+	.popup-panel .body .content .info-card .text4-block i{
+		margin-right: 0.5em;
+	}
+	.popup-panel .body .content .info-card .text4{
+		display: block;
+		color: #ccc;
+		font-size: 1em;
+		line-height: 1.6em;
+	}
+
+	.popup-panel .body .content .btn{
+		width: 100%;
+		display: block;
+		background-color: #007bff;
+		color: #fff;
+		border: none;
+		font-weight: bold;
+		border-radius: 0.5em;
+		padding: 0.5em;
+		font-size: 1.1em;
+		margin-bottom: 0.6em;
+	}
+	.popup-panel .body .content .btn:hover{
+		background-color: #36f;
+	}
+	.popup-panel .body .content .btn.btn2{
+		background-color: #f5f5f5;
+		color: #999;
+	}
+	.popup-panel .body .content .btn.btn2:hover{
+		color: #333;
+	}
+
+	.division-line{
+		width: 100%;
+		height: 2px;
+		background-color: #f2f2f2;
+		margin-bottom: 1em;
+	}
+
+	@media screen and (max-width: 1000px) and (min-height: 1000px){ /* Mobile */
+		.popup-panel .body{
+			width: 90%;
+		}
+		.popup-panel .body .close-btn{
+			font-size: 3em;
+			margin-top: 0em;
+			margin-bottom: 2em;
+		}
+		.popup-panel .body .content{
+			width: 100%;
+			border-radius: 2em;
+			padding: 2.5em;
+			padding-bottom: 0em;
+			margin: 0;
+		}
+		.popup-panel .body .content .title{
+			font-size: 7em;
+		}
+		.popup-panel .body .content .error-msg{
+			font-size: 2.5em;
+			line-height: 2.2em;
+		}
+		.popup-panel .body .content .text{
+			font-size: 1em;
+			line-height: 1.2em;
+			margin-bottom: 1em;
+		}
+		.popup-panel .body .content .form-group{
+			margin-top: 3em;
+			margin-bottom: 4em;
+		}
+		.popup-panel .body .content .form-group input{
+			font-size: 3em;			
+			margin-bottom: 0.6em;
+			padding: 0.5em;
+			border-radius: 0.5em;
+			border-width: 0.15em;
+		}
+		.popup-panel .body .content .form-group label{
+			font-size: 2.7em;
+			line-height: 1.7em;
+			margin-top: 0em;
+		}
+		.popup-panel .body .content .btn{
+			border-radius: 0.5em;
+			padding: 0.5em;
+			font-size: 3.5em;
+		}
+		.custom-control-label{
+			left: 1.3em;
+		}
+		.custom-checkbox .custom-control-label::before, .custom-checkbox .custom-control-label::after{
+			width:  1.2em;
+			height: 1.2em;
+			left: -1.8em;
+			border-radius: 0.25em;
+			border-width: 0.1em;
+		}
+
+
+		.popup-panel .body .content .info-card{
+			margin-bottom: 4em;
+		}
+		.popup-panel .body .content .info-card .img{
+			width: 	19em;
+			height: 19em;
+			margin-bottom: 2em;
+		}
+		.popup-panel .body .content .info-card .text{
+			font-size: 5em;
+			margin-bottom: 0.2em;
+		}
+		.popup-panel .body .content .info-card .text2{
+			font-size: 3.6em;
+			line-height: 1.5em;
+		}
+		.popup-panel .body .content .info-card .text3{
+			font-size: 2.6em;
+			/* line-height: 1.6em; */
+		}
+		.popup-panel .body .content .info-card .text4-block{
+			margin-top: 3em;
+		}
+		.popup-panel .body .content .info-card .text4-block i{
+			margin-right: 0.5em;
+		}
+		.popup-panel .body .content .info-card .text4{
+			font-size: 3em;
+			line-height: 1.6em;
+		}
+	}
+
+</style>
+
+<script>
+	function goto(url){ location.href = url; }
+	function goback(url){ window.history.back(); }
+</script>
+
+<body>
+{% block content %}
+{% endblock %}
+</body>
+
+
+	
+</html>

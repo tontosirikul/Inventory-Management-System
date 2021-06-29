@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>RAI Lab</title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+		<!-- Icon -->
+		<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+
+		
+		<link rel="shortcut icon" type="image/png"	 href="{% static 'favicon/icon2/icon@32.png' %}"/>
+		<link rel="apple-touch-icon" 				 href="{% static 'favicon/icon2/icon@80.png' %}"> <!-- iPhone -->
+		<link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/icon2/icon@152.png' %}"> <!-- iPad -->
+		<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/icon2/icon@180.png' %}"> <!-- iPhone-retina -->
+		<link rel="apple-touch-icon" sizes="167x167" href="{% static 'favicon/icon2/icon@167.png' %}"> <!-- iPad-retina -->
+		<meta name="apple-mobile-web-app-title" content="RAI Lab">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+		<style type="text/css">
+			a{ white-space: nowrap; }
+
+			.nav-link {
+				cursor: pointer;
+			}
+
+			@font-face {
+				font-family: Righteous; 
+				src: url({% static 'fonts/Righteous-Regular.ttf' %});
+			}
+			@font-face {
+				font-family: FAqua; 
+				src: url({% static 'fonts/aqua.ttf' %});
+			}
+
+
+		</style>
+
+	</head>
+	<body>
+		
+		<nav class="navbar navbar-expand-sm bg-light">
+
+		<!-- <nav class="navbar navbar-expand-sm navbar-dark fixed-top"> -->
+			<!-- <a class="navbar-brand" href="#">YNP</a> -->
+			<ul class="navbar-nav mr-auto">
+				<a class="navbar-brand">Robotics and AI Laboratory</a>
+			</ul>
+			<ul class="navbar-nav">
+				{% if user.is_authenticated %}
+					<!-- <li class="nav-item" style="text-transform: uppercase;"><a class="nav-link" href="">{{ user.username }}</a></li> -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Account</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<div class="dropdown-header">Signed in as {{ user.username }}</div>
+							<a class="dropdown-item" href="">Change Password</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="">Sign out</a>
+						</div>
+					</li>
+				{% else %}
+					<li class="nav-item"><a class="nav-link" href="">Login</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+		<div style="width: 100%;">
+			{% block content %}
+			{% endblock %}
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>RAI Smart Inventory</title>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/modules/smart_inventory/admin">
+          <img src="{% static "rai_smartInventory/inventory/clock.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+          HISTORY
+        </a>
+    </nav>
+    <style>
+    .card-deck{
+        display: flex;
+        align-content: stretch;
+        flex-direction: column;
+        padding: 50px;
+        /* min-height: 100vh; */
+    }
+    .card{
+        padding:10px;
+        margin: 10px;
+    }
+    .card-title{
+        text-align: center;
+    }
+    .card-text{
+        text-align: center;
+    }
+    .myImage{
+        padding: 10px;
+        margin: auto;
+        display: block;
+        width:1470px;
+        max-width: 100%;
+        height:auto;
+    }
+    a {
+      color:inherit;
+      text-decoration: none;
+    }
+    </style>
+</head>
+
+
+<body>
+    <div class="card-deck">
+        <div class="card">
+          <a href="inventoryhistory">
+          <!-- <img src="..." class="card-img-top" alt="..."> -->
+          <div class="card-body">
+            <h5 class="card-title">Inventory Changed History</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+        </a>
+        </div>
+        <div class="card">
+          <a href="requestlisthistory"> 
+          <!-- <img src="..." class="card-img-top" alt="..."> -->
+          <div class="card-body">
+            <h5 class="card-title">Request Lists History</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          </div>
+        </a> 
+        </div>
+        <div class="card">
+          <a href="returnlist">
+          <!-- <img src="..." class="card-img-top" alt="..."> -->
+          <div class="card-body">
+            <h5 class="card-title">Return Lists History</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          </div>
+        </a>
+        </div>
+      </div>
+</body>
+
+
+
+</html>
